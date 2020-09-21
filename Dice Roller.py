@@ -1,13 +1,28 @@
 import random
 from tkinter import *
+from tkinter import ttk
 import PIL
 from PIL import ImageTk
 from PIL import Image
 
 root = Tk()
 root.title("Dice Roller")
-root.geometry('400x300')
+root.geometry('425x300')
+root.minsize(500, 300)
 root.configure(background='white')
+
+root.grid_columnconfigure(0, weight = 1)
+root.grid_rowconfigure(0, weight = 1)
+
+buttonFrame = Frame(root)
+buttonFrame.grid(row=2, column=0, sticky="nswe")
+buttonFrame.grid_columnconfigure(0, weight = 5)
+buttonFrame.grid_columnconfigure(1, weight = 5)
+buttonFrame.grid_columnconfigure(2, weight = 5)
+buttonFrame.grid_columnconfigure(3, weight = 5)
+buttonFrame.grid_columnconfigure(4, weight = 5)
+buttonFrame.grid_columnconfigure(5, weight = 5)
+
 roll = StringVar()
 diceRolled = StringVar()
 img = Image.open("images\dice.png")
@@ -16,14 +31,15 @@ newImg = ImageTk.PhotoImage(img)
 
 
 def main():
-    DiceLabel = Label(root, image = newImg, textvariable = diceRolled, compound = "center", padx=10, pady = 10, justify=CENTER, background='white').grid(sticky="n",row=1, columnspan=5)
-    d4Button = Button(root, text="Roll D4", command=d4_roll, height = 2, width = 5, padx=10, pady = 10).grid(row=2, column=0)
-    d6Button = Button(root, text="Roll D6", command=d6_roll, height = 2, width = 5, padx=10, pady = 10).grid(row=2, column=1)
-    d8Button = Button(root, text="Roll D8", command=d8_roll, height = 2, width = 5, padx=10, pady = 10).grid(row=2, column=2)
-    d10Button = Button(root, text="Roll D10", command=d10_roll,height = 2, width = 5, padx=10, pady = 10).grid(row=2, column=3)    
-    d20Button = Button(root, text="Roll D20", command=d20_roll, height = 2, width = 5, padx=10, pady = 10).grid(row=2, column=4)  
-    d100Button = Button(root, text="Roll D100", command=d100_roll, height= 2, width = 5, padx=10, pady = 10).grid(row=2, column=5)  
-    RollLbl = Label(root, textvariable=roll, padx=10, pady = 10, justify=RIGHT, background='white').grid(sticky="n",row=0, columnspan=5)
+    rollLbl = Label(root, textvariable=roll, padx=10, pady = 10, justify=CENTER, background='white').grid(sticky="n",row=0, columnspan=5)
+    diceLabel = Label(root, image = newImg, textvariable = diceRolled, compound = "center", padx=10, pady = 10, justify=CENTER, background='white',font=("Courier", 39)).grid(sticky="nsew",row=1, columnspan=5)
+    d4Button = Button(buttonFrame, text="Roll D4", command=d4_roll, padx=10, pady = 10).grid(row=2, column=0, sticky="nsew")
+    d6Button = Button(buttonFrame, text="Roll D6", command=d6_roll, padx=10, pady = 10).grid(row=2, column=1, sticky="nsew")
+    d8Button = Button(buttonFrame, text="Roll D8", command=d8_roll, padx=10, pady = 10).grid(row=2, column=2, sticky="nsew")
+    d10Button = Button(buttonFrame, text="Roll D10", command=d10_roll, padx=10, pady = 10).grid(row=2, column=3, sticky="nsew")    
+    d20Button = Button(buttonFrame, text="Roll D20", command=d20_roll,  padx=10, pady = 10).grid(row=2, column=4, sticky="nsew")  
+    d100Button = Button(buttonFrame, text="Roll D100", command=d100_roll, padx=10, pady = 10).grid(row=2, column=5, sticky="nsew")  
+
     
 def d4_roll():
     d4 = random.randint(1,4)
